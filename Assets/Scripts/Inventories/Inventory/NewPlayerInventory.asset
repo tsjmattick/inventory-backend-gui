@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110dd78afd13e41249d8a44b269be647, type: 3}
+  m_Name: NewPlayerInventory
+  m_EditorClassIdentifier: 
+  inventoryId: inv_Default_NewPlayerInventory_8407d31f0440
+  invName: NewPlayerInventory
+  description: just a small backpack, nothing more
+  maxSlots: 20
+  availableSlots: 5
+  inventoryType: 3
+  items: []

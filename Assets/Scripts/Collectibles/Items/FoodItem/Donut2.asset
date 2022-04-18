@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f5be0431c6b64076a60ff545a4efae2, type: 3}
+  m_Name: Donut2
+  m_EditorClassIdentifier: 
+  description: "This is a donut.  There are many donuts, but this one is yours. 
+    \n\n"
+  amount: 0
+  stackable: 0
+  displayIcon: {fileID: 0}
+  itemType: 0
+  buyPrice: 0
+  sellPrice: 0
+  barterValue: 0
+  healthValue: 0
+  foodItemID: item_Food_Donut2_aea560687ff3
+  foodName: Donut2
