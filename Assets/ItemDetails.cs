@@ -7,7 +7,6 @@ using UnityEngine.Events;
 public class ItemDetails : MonoBehaviour
 {
     public Collectible info;
-
     private void OnTriggerEnter(Collider other)
     {
         var playerInventory = other.GetComponent<PlayerInventoryManager>().currentInventory;

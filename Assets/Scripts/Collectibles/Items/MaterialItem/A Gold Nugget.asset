@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: A Gold Nugget
   m_EditorClassIdentifier: 
   description: 
-  amount: 1
-  stackable: 0
-  displayIcon: {fileID: 0}
+  amount: 5
+  stackable: 1
+  displayIcon: {fileID: 21300000, guid: 4f09264187c30413bb4f758eae2e9693, type: 3}
   itemType: 2
   buyPrice: 0
   sellPrice: 0
   barterValue: 0
-  materialItemID: item_Material_A Gold Nugget_cd0fb4484e00
+  materialItemID: item_Material_A Gold Nugget_0761a0b029b0
   materialName: A Gold Nugget
   materialType: 0
-  materialQuality: 0
-  materialQualityType: 0
+  materialQuality: 2
+  materialQualityType: 1
