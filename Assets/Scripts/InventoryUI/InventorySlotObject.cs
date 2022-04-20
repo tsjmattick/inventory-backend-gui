@@ -1,3 +1,4 @@
+using StarterAssets.Tooltips;
 using UnityEngine;
 
 namespace StarterAssets.InventoryUI
@@ -13,5 +14,7 @@ namespace StarterAssets.InventoryUI
         public Sprite icon;
         public bool isStackable;
         public int quantity;
+
+        public TooltipTrigger TooltipTrigger;
     }
 }

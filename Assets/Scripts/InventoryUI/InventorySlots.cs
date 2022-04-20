@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using StarterAssets.Tooltips;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static GameEvents;
@@ -81,6 +82,8 @@ namespace StarterAssets.InventoryUI
                     
                     // update the visible icon...
                     slot.gameObject.GetComponent<Image>().overrideSprite = slotDetails.icon;
+                    slot.gameObject.GetComponent<TooltipTrigger>().header = slotDetails.name;
+                    slot.gameObject.GetComponent<TooltipTrigger>().content = slotDetails.description;
                 }
             }
             catch (Exception e)
