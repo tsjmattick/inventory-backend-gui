@@ -14,6 +14,7 @@ namespace StarterAssets.InventoryUI
         public Sprite icon;
         public bool isStackable;
         public int quantity;
+        public int maxStack;
 
         public TooltipTrigger TooltipTrigger;
     }
