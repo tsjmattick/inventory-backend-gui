@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb0b00fbd1724e5381453c1277106c2, type: 3}
-  m_Name: A Gold Nugget
+  m_Name: A Rock
   m_EditorClassIdentifier: 
-  description: this is a gold nugget .. take a bite.
-  amount: 9
+  description: 'a Rock ... '
+  amount: 7
   stackable: 1
-  displayIcon: {fileID: 21300000, guid: 4f09264187c30413bb4f758eae2e9693, type: 3}
+  displayIcon: {fileID: 21300000, guid: d7420ce68c7684a20806d6e0d9a9ea50, type: 3}
   itemType: 2
   buyPrice: 0
   sellPrice: 0
   barterValue: 0
-  materialItemID: item_Material_A Gold Nugget_ba4c967bb3d8
-  materialName: A Gold Nugget
+  materialItemID: item_Material_A Rock_6c5827ac2aae
+  materialName: A Rock
   materialType: 0
-  materialQuality: 2
-  materialQualityType: 1
+  materialQuality: 0
+  materialQualityType: 0

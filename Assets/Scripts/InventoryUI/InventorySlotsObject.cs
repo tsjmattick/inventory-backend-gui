@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using StarterAssets.Inventories;
 using UnityEngine;
 using UnityEngine.Serialization;
 

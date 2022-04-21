@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using StarterAssets.Tooltips;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static GameEvents;
@@ -22,7 +23,22 @@ namespace StarterAssets.InventoryUI
             availableSlots = currentInventory.availableSlots;
             
             // TODO fill slots with player current inventory items -- Do this next
-            
+            InitializeSlots();
+            AddItemsToSlots();
+        }
+
+        private void AddItemsToSlots()
+        {
+           // get a list of the available slots, this should always match the count of the players items
+
+           foreach (var collectible in currentInventory.items)
+           {
+               AddItem(collectible, collectible.amount);
+           }
+        }
+
+        private void InitializeSlots()
+        {
             foreach (var slot in slotsUI)
             {
                 // set all slots id;
@@ -41,9 +57,45 @@ namespace StarterAssets.InventoryUI
                     slot.SetActive(false);
                 }
                 slotsCount++;
-            }
+            }        
         }
 
+        protected override void OnSlotUpdate(Collectible collectible, int qty)
+        {
+            // get the first empty slot, then update slots image, type, desc, and quantity
+            try
+            {
+                // check the slots for similar items.  if we have one, simply update the quantity.  check that it is not maxed out.  
+                // not sure of what that ceiling might be yet, i am guessing certain types would only stack so high.
+
+                var slot = slotsUI.ToList()
+                    .SingleOrDefault(s => s.GetComponent<InventorySlot>().slotItemName == collectible.name);
+
+                if (slot)
+                {
+                    slot.GetComponent<InventorySlot>().quantity += qty;
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = slot.GetComponent<InventorySlot>().quantity.ToString();
+                    
+                    // we need to update current inventory values here.
+
+                    
+                }
+                else
+                {
+                    if (!AddItem(collectible, qty))
+                    {                
+                        Debug.LogWarning($"Unable to add item, inventory seems full. {collectible.name}");
+
+                        // we need to let the player know inventory is full;
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Unable to update inventory Image, {e.Message}");
+            }
+        }
+        
         public override bool AddItem(Collectible collectible, int qty)
         {
             // this is for creating a new slot...
@@ -67,6 +119,7 @@ namespace StarterAssets.InventoryUI
             slot.gameObject.GetComponent<Image>().overrideSprite = slotDetails.icon;
             slot.gameObject.GetComponent<TooltipTrigger>().header = slotDetails.name;
             slot.gameObject.GetComponent<TooltipTrigger>().content = slotDetails.description;
+            slot.GetComponentInChildren<TextMeshProUGUI>().text = slotDetails.quantity.ToString();
 
             return true;
         }
@@ -74,37 +127,6 @@ namespace StarterAssets.InventoryUI
         public override bool RemoveItem()
         {
             return isSlotUpdated;
-        }
-
-        protected override void OnSlotUpdate(Collectible collectible, int qty)
-        {
-            // get the first empty slot, then update slots image, type, desc, and quantity
-            try
-            {
-                // check the slots for similar items.  if we have one, simply update the quty.  check that it is not maxxed out.  
-                // not sure of what that ceiling might be yet, i am guessing certain types would only stack so high.
-
-                var slot = slotsUI.ToList()
-                    .SingleOrDefault(s => s.GetComponent<InventorySlot>().slotItemName == collectible.name);
-
-                if (slot)
-                {
-                    slot.GetComponent<InventorySlot>().quantity += qty;
-                }
-                else
-                {
-                    if (!AddItem(collectible, qty))
-                    {                
-                        Debug.LogWarning($"Unable to add item, inventory seems full. {collectible.name}");
-
-                        // we need to let the player know inventory is full;
-                    };
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning($"Unable to update inventory Image, {e.Message}");
-            }
         }
     }
 }
