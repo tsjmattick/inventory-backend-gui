@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 public abstract class Collectible : ScriptableObject
 {
-    [TextArea(10,20)]
+    public string itemKey;
+    [TextArea(10, 20)] 
     public string description;
     public int amount;
     public bool stackable;

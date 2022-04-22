@@ -12,13 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110dd78afd13e41249d8a44b269be647, type: 3}
   m_Name: NewPlayerInventory
   m_EditorClassIdentifier: 
-  inventoryId: inv_Default_NewPlayerInventory_b2019d0979a4
+  inventoryId: inv_Default_NewPlayerInventory_d186f656d259
   invName: NewPlayerInventory
   description: just a small backpack, nothing more
   maxSlots: 20
   availableSlots: 5
   inventoryType: 3
-  items:
-  - {fileID: 11400000, guid: e6c5d072ad5cf4ce89fef149ea0d18b7, type: 2}
-  - {fileID: 11400000, guid: eb1e05d17f45549919d3aa737616d81e, type: 2}
-  - {fileID: 11400000, guid: ea04ae2ead50e41cfad5a0df49fe4cd7, type: 2}
+  items: []

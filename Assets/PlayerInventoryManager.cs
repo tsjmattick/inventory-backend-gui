@@ -2,38 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using StarterAssets.Inventories;
+using StarterAssets.InventoryUI;
 using UnityEngine;
 
 public class PlayerInventoryManager : MonoBehaviour
 {
-    public Inventory currentInventory;
-    private readonly Dictionary<Collectible, int> _items = new Dictionary<Collectible, int>();
     void Start()
     {
         GameEvents.Current.OnItemPickupTriggerEnter += OnItemPickup;
-        CreateItemsList();
     }
-    private void CreateItemsList()
-    {
-        if (currentInventory == null) return;
-        foreach (var item in currentInventory.items)
-        {
-            _items.Add(item, item.amount);
-        }
-    }
+
     private void OnItemPickup(Collectible collectible, int qty)
     {
+        
+        
+        // we need to check the item keys to see if we already have the collectible.  it should be the same as the slots name;
         // we either have already collected this or we have not.  this adds item to 
         // dictionary or public list, and finishes by updating the value.
-        if(!_items.ContainsKey(collectible))
-        {
-            currentInventory.items.Add(collectible);
-            _items.Add(collectible, qty);
-        }
-        else
-        {
-            _items[collectible]+= qty;
-        }
+        // if(!_items.ContainsKey(.itemKey))
+        // {
+        //     currentInventory.items.Add(collectible);
+        //     _items.Add(collectible.itemKey, qty);
+        // }
+        // else
+        // {
+        //     _items[collectible.itemKey]+= qty;
+        // }
     }
     private void OnDestroy()
     {

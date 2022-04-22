@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb0b00fbd1724e5381453c1277106c2, type: 3}
-  m_Name: A Silver Nugget
+  m_Name: A Gold Nugget 7
   m_EditorClassIdentifier: 
-  itemKey: 
-  description: this is silver, always the bridesmaid
-  amount: 1
+  itemKey: gold
+  description: this is a gold nugget .. take a bite.
+  amount: 7
   stackable: 1
-  displayIcon: {fileID: 21300000, guid: 52d4859a0ca4a49198cb9836ad7addae, type: 3}
+  displayIcon: {fileID: 21300000, guid: 4f09264187c30413bb4f758eae2e9693, type: 3}
   itemType: 2
   buyPrice: 0
   sellPrice: 0
   barterValue: 0
-  materialItemID: item_Material_A Silver Nugget_4e21ea9561df
-  materialName: A Silver Nugget
+  materialItemID: item_Material_A Gold Nugget 7_b3cacd0a05a7
+  materialName: A Gold Nugget 7
   materialType: 0
-  materialQuality: 0
-  materialQualityType: 0
+  materialQuality: 2
+  materialQualityType: 1

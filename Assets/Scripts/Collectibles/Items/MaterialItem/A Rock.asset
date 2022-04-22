@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb0b00fbd1724e5381453c1277106c2, type: 3}
   m_Name: A Rock
   m_EditorClassIdentifier: 
+  itemKey: 
   description: 'a Rock ... '
-  amount: 7
+  amount: 3
   stackable: 1
   displayIcon: {fileID: 21300000, guid: d7420ce68c7684a20806d6e0d9a9ea50, type: 3}
   itemType: 2
   buyPrice: 0
   sellPrice: 0
   barterValue: 0
-  materialItemID: item_Material_A Rock_6c5827ac2aae
+  materialItemID: item_Material_A Rock_6e843a5dc849
   materialName: A Rock
   materialType: 0
   materialQuality: 0

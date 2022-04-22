@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using StarterAssets.Inventories;
 using StarterAssets.Tooltips;
 using TMPro;
 using UnityEngine;
@@ -11,54 +13,96 @@ namespace StarterAssets.InventoryUI
 {
     public class InventorySlots:InventorySlotsObject
     {
-        private int slotsCount = 1;
-        
+        private int slotsCount; 
+        private readonly Dictionary<InventorySlot, Collectible> _items = new Dictionary<InventorySlot, Collectible>();
+
         private void Start()
         {
             Current.OnItemPickupTriggerEnter += OnSlotUpdate;
-            
+
             // we need to initialize each slot and set its available flag based on current 
             // inventory details
             maxSlots = currentInventory.maxSlots;
             availableSlots = currentInventory.availableSlots;
-            
-            // TODO fill slots with player current inventory items -- Do this next
+            slotsCount = 0;
             InitializeSlots();
-            AddItemsToSlots();
-        }
-
-        private void AddItemsToSlots()
-        {
-           // get a list of the available slots, this should always match the count of the players items
-
-           foreach (var collectible in currentInventory.items)
-           {
-               AddItem(collectible, collectible.amount);
-           }
         }
 
         private void InitializeSlots()
         {
+            if (currentInventory == null) return;
+
+            // first, set all slots available based on available player inventory size;
             foreach (var slot in slotsUI)
             {
-                // set all slots id;
-                var slotDetails = slot.GetComponent<InventorySlot>();
-                slotDetails.isEmpty = slotDetails.quantity == 0 ? true : false;
-                slotDetails.id = slotsCount;
-                slotDetails.isStackable = true;
-                // check to see if slot is available, otherwise disable it in UI.
-                if (slotsCount <= currentInventory.availableSlots)
+                if (slotsCount < currentInventory.availableSlots)
                 {
-                    slotDetails.isStackable = true;
-                    slotDetails.isAvailable = true;
+                    var slotDetails = slot.GetComponent<InventorySlot>();
+                    UpdateCurrentInventorySlotDetails(slotDetails, slotsCount);
                 }
                 else
                 {
                     slot.SetActive(false);
                 }
+
                 slotsCount++;
-            }        
+            }
         }
+        
+        /// <summary>
+        /// this function checks itself against the players current inventory.  once verified, it updates current values based on the stored players
+        /// inventory asset.  
+        /// </summary>
+        /// <param name="slotDetails">the extra details needed to setup each slot. </param>
+        /// <param name="slotNum">the current slot number we are setting up</param>
+        private void UpdateCurrentInventorySlotDetails(InventorySlot slotDetails, int slotNum)
+        {
+            if (slotNum < currentInventory.items.Count)
+            {
+                // update relevant details based on current inventory item information.  let the slot know if it is stackable so that we can increment items instead of adding items to new slot.
+                // TODO ... get the last part working
+                Debug.LogWarning($"Creating slot #{slotNum}");
+                var inventoryItem = currentInventory.items[slotNum];
+                slotDetails.id = slotNum;
+                slotDetails.isAvailable = true;
+                slotDetails.isEmpty = false;
+                slotDetails.isStackable = inventoryItem.stackable;
+                slotDetails.slotItemName = inventoryItem.itemKey;
+                slotDetails.quantity += inventoryItem.amount;
+                slotDetails.type = inventoryItem.itemType.ToString();
+                slotDetails.icon = inventoryItem.displayIcon;
+                // this updates the dictionary that holds the internal items list.
+                _items.Add(slotDetails,inventoryItem);
+                // finally, update the current inventory slot GUI image and text values
+
+                var slot = slotsUI.ToList().FirstOrDefault(s => s.GetComponent<InventorySlot>().isAvailable == true && 
+                                                                s.GetComponent<InventorySlot>().isEmpty == false);
+                                                                
+                if (slot != null)
+                {
+                    slot.gameObject.GetComponent<Image>().overrideSprite = slotDetails.icon;
+                    slot.gameObject.GetComponent<TooltipTrigger>().header = slotDetails.name;
+                    slot.gameObject.GetComponent<TooltipTrigger>().content = slotDetails.description;
+                    slot.GetComponentInChildren<TextMeshProUGUI>().text = slotDetails.quantity.ToString();
+                }
+            }
+            else
+            {
+                slotDetails.id = slotNum;
+                slotDetails.isAvailable = true;
+                slotDetails.isEmpty = true;
+            }
+
+
+        }
+
+        private void UpdateCurrentInventorySlotGUIDisplay(InventorySlot slotDetails)
+        {
+            var slot = slotsUI.ToList().SingleOrDefault(s => s.GetComponent<InventorySlot>().id == slotDetails.id);
+            if (slot == null) return;
+            
+        }
+
 
         protected override void OnSlotUpdate(Collectible collectible, int qty)
         {
@@ -69,7 +113,7 @@ namespace StarterAssets.InventoryUI
                 // not sure of what that ceiling might be yet, i am guessing certain types would only stack so high.
 
                 var slot = slotsUI.ToList()
-                    .SingleOrDefault(s => s.GetComponent<InventorySlot>().slotItemName == collectible.name);
+                    .SingleOrDefault(s => s.GetComponent<InventorySlot>().slotItemName == collectible.itemKey);
 
                 if (slot)
                 {
@@ -78,6 +122,9 @@ namespace StarterAssets.InventoryUI
                     
                     // we need to update current inventory values here.
 
+                    //TODO Bug... the player current inventory is updating, however, its updating the collectibles values.  instead, the slots
+                    //info needs to store its data in the items dictionary as it is a copy of player current inventory.  once this is setup, then the connection to the
+                    //UI should work.  maybe 4.21.22 JAM
                     
                 }
                 else
@@ -106,7 +153,7 @@ namespace StarterAssets.InventoryUI
             
             var slotDetails = slot.GetComponent<InventorySlot>();
             Debug.LogWarning($"item picked up, updating slot {slotDetails.id}");
-            slotDetails.slotItemName = collectible.name;
+            slotDetails.slotItemName = collectible.itemKey;
             slotDetails.icon = collectible.displayIcon;
             slotDetails.description = collectible.description;
             slotDetails.type = collectible.itemType.ToString();
@@ -126,6 +173,7 @@ namespace StarterAssets.InventoryUI
 
         public override bool RemoveItem()
         {
+            // this is what happens when we click the button...
             return isSlotUpdated;
         }
     }
